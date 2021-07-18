@@ -1,34 +1,32 @@
-import { Component, OnInit } from '@angular/core';
-import {ProductService} from '../../services/product.service';
-import {Router} from '@angular/router';
-import {ProductModelServer, ServerResponse} from '../../models/product.model';
-import {CartService} from '../../services/cart.service';
+import { Component, OnInit } from "@angular/core";
+import { ProductService } from "../../services/product.service";
+import { Router } from "@angular/router";
+import { ProductModelServer, ServerResponse } from "../../models/product.model";
+import { CartService } from "../../services/cart.service";
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  selector: "app-home",
+  templateUrl: "./home.component.html",
+  styleUrls: ["./home.component.scss"],
 })
 export class HomeComponent implements OnInit {
-
   products: ProductModelServer[] = [];
 
+  constructor(
+    private productService: ProductService,
+    private cartService: CartService,
+    private router: Router
+  ) {}
 
-  constructor(private productService: ProductService,
-              private cartService: CartService,
-              private router: Router) { }
-
-              showMainContent: Boolean = true;
-              ngOnInit(): void {
-
+  showMainContent: Boolean = true;
+  ngOnInit(): void {
     this.productService.getAllProducts().subscribe((prods: ServerResponse) => {
       this.products = prods.products;
     });
-    console.log(this.productService)
   }
 
   selectProduct(id: number) {
-    this.router.navigate(['/product', id]).then();
+    this.router.navigate(["/product", id]).then();
   }
 
   AddToCart(id: number) {
@@ -40,5 +38,5 @@ export class HomeComponent implements OnInit {
 
   ShowHideButton() {
     this.showMainContent = this.showMainContent ? false : true;
- }
+  }
 }
