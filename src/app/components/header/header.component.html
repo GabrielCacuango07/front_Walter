@@ -9,6 +9,7 @@
                 <li><a href="#"><i class="fa fa-map-marker"></i> Av. Moral Valverde</a></li>
             </ul>
             <ul class="header-links pull-right">
+                <li (click)="showHelp()"><a href="javascript:void(0)"><i class="fa fa-question-circle-o"></i>Ayuda</a></li>
                 <li><a routerLink="/profile"><i class="fa fa-sign-in"></i> {{authState === false ? 'LOGIN' : 'My Account'}}</a></li>
                 <li *ngIf="!authState"><a routerLink="/register"><i class="fa fa-user-plus"></i> REGISTER</a></li>
                 <li><a href="/test/admin" *ngIf="authState"><i class="fa fa-user-plus"></i> ADMIN</a></li>
