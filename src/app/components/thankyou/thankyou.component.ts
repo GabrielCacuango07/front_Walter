@@ -34,6 +34,7 @@ export class ThankyouComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log('pago con paypal')
   }
 
 }

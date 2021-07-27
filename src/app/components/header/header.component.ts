@@ -16,6 +16,7 @@ export class HeaderComponent implements OnInit {
   cartTotal: number;
   public activeLang = 'es';
   authState: boolean;
+  contadorAyuda: number=0;
 
 
   constructor(public cartService: CartService,
@@ -40,6 +41,10 @@ export class HeaderComponent implements OnInit {
 
   public showHelp() {
     this.help.emit('');
+    this.contadorAyuda +=1;
+    console.log('ayuda aplastado',this.contadorAyuda);
+
   }
+
 
 }

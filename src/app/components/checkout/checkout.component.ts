@@ -37,6 +37,8 @@ export class CheckoutComponent implements OnInit {
   }
 
   onCheckout() {
+
+    console.log('generar comprar pyapal');
     if (this.cartTotal > 0) {
       this.spinner.show().then(p => {
         this.cartService.CheckoutFromCart(this.userId);
