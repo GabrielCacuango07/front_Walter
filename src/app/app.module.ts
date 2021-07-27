@@ -33,6 +33,7 @@ import { ProfileComponent } from "./components/profile/profile.component";
 
 import { KeyboardShortcutsModule } from "ng-keyboard-shortcuts";
 
+
 const config = new AuthServiceConfig([
   {
     id: GoogleLoginProvider.PROVIDER_ID,
@@ -81,7 +82,7 @@ export function provideConfig() {
         deps: [HttpClient],
       },
     }),
-    KeyboardShortcutsModule.forRoot()
+    KeyboardShortcutsModule.forRoot(),
   ],
   providers: [
     {

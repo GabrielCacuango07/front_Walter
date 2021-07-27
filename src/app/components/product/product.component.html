@@ -4,7 +4,7 @@
   <div class="container">
     <!-- row -->
     <div class="row">
-      <div class="col-md-12">
+      <div class="col-md-12" *ngIf="product">
         <ul class="breadcrumb-tree">
           <li><a href="#">Home</a></li>
           <li><a href="#">All Categories</a></li>
@@ -24,7 +24,7 @@
   <!-- container -->
   <div class="container">
     <!-- row -->
-    <div class="row">
+    <div class="row" *ngIf="product">
       <!-- Product main img -->
       <div class="col-md-5 col-md-push-2">
         <div id="product-main-img">
@@ -63,7 +63,7 @@
       <!-- /Product thumb imgs -->
 
       <!-- Product details -->
-      <div class="col-md-5">
+      <div class="col-md-5" *ngIf="product">
         <div class="product-details">
           <h2 class="product-name">{{product.name}}</h2>
           <div>
