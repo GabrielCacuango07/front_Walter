@@ -10,6 +10,8 @@ import {ProductModelServer} from '../models/product.model';
 import {ToastrService} from 'ngx-toastr';
 import {NgxSpinnerService} from 'ngx-spinner';
 
+declare var gtag;
+
 @Injectable({
   providedIn: 'root'
 })
@@ -37,6 +39,9 @@ export class CartService {
   /* OBSERVABLES FOR THE COMPONENTS TO SUBSCRIBE*/
   cartTotal$ = new BehaviorSubject<number>(0);
   cartData$ = new BehaviorSubject<CartModelServer>(this.cartDataServer);
+
+  //Timer to estimate purchase time
+
 
 
   constructor(private http: HttpClient,
@@ -207,7 +212,7 @@ export class CartService {
     }
   }
 
-  CheckoutFromCart(userId: number) {
+  CheckoutFromCart(userId: number, time: number) {
     this.http.post(`${this.serverURL}/orders/payment`, null).subscribe((res: { success: boolean }) => {
       if (res.success) {
 
@@ -232,6 +237,8 @@ export class CartService {
                 this.cartDataClient = {total: 0, prodData: [{incart: 0, id: 0}]};
                 this.cartTotal$.next(0);
                 localStorage.setItem('cart', JSON.stringify(this.cartDataClient));
+                // finish transaction;
+                this.getTimeTransaction(time)
               });
             }
           });
@@ -283,6 +290,17 @@ export class CartService {
     subTotal = p.product.price * p.numInCart;
 
     return subTotal;
+  }
+
+  getTimeTransaction(initTime: number) {
+    const ms = performance.now() - initTime;
+    const seconds = ((ms % 60000) / 1000);
+
+    gtag('event', 'transaccion', {
+      eventCategory: 'Completed',
+      eventLabel: "User make the payment of products",
+      time: `${seconds.toFixed(2)}s to complete`
+    })
   }
 }
 

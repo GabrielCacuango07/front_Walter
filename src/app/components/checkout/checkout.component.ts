@@ -6,6 +6,7 @@ import {NgxSpinnerService} from 'ngx-spinner';
 import {CartModelServer} from '@app/models/cart.model';
 import {UserService} from '@app/services/user.service';
 
+declare var gtag;
 @Component({
   selector: 'app-checkout',
   templateUrl: './checkout.component.html',
@@ -16,6 +17,7 @@ export class CheckoutComponent implements OnInit {
   cartTotal: number;
   cartData: CartModelServer;
   userId;
+  time: number;
 
   constructor(private cartService: CartService,
               private orderService: OrderService,
@@ -33,7 +35,13 @@ export class CheckoutComponent implements OnInit {
       this.userId = data.userId || data.id;
       console.log(this.userId);
     });
+    this.time = performance.now()
 
+    console.log('object')
+    gtag('event', 'transaccion', {
+      eventCategory: 'begin',
+      eventLabel: "User want to make a payment",
+    })
   }
 
   onCheckout() {
@@ -41,8 +49,9 @@ export class CheckoutComponent implements OnInit {
     console.log('generar comprar pyapal');
     if (this.cartTotal > 0) {
       this.spinner.show().then(p => {
-        this.cartService.CheckoutFromCart(this.userId);
+        this.cartService.CheckoutFromCart(this.userId, this.time);
       });
+
     } else {
       return;
     }
