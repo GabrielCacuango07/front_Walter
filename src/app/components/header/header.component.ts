@@ -4,6 +4,8 @@ import {CartService} from '../../services/cart.service';
 import {UserService} from '../../services/user.service';
 import { TranslateService } from '@ngx-translate/core';
 import { EventEmitter } from '@angular/core';
+
+declare var gtag;
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -43,7 +45,10 @@ export class HeaderComponent implements OnInit {
     this.help.emit('');
     this.contadorAyuda +=1;
     console.log('ayuda aplastado',this.contadorAyuda);
-
+    gtag("event", "help_functions", {
+      eventCategory: 'help',
+      eventLabel: "User help button"
+    });
   }
 
 

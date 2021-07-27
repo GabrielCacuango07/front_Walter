@@ -29,8 +29,10 @@ export class AppComponent implements OnInit {
     setTimeout(() => {
       const chatBot = document.querySelector("#sntch_button");
       chatBot.addEventListener("click", () => {
-        // TODO: Register user help
-        console.log("Register user help in DB");
+        gtag("event", "help_functions", {
+          eventCategory: 'help',
+          eventLabel: "User click the bot"
+        });
       });
     }, 2000);
   }
